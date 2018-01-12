@@ -26,11 +26,25 @@ public class HTTPClientTest {
 	private static final WebClient client = new WebClient(BrowserVersion.CHROME);
 	private static final Logger logger = LogManager.getLogger(HTTPClientTest.class);
 	static {
+		
+		//检测运行环境
+		String osName = System.getProperty("os.name");
+		if(osName != null) {
+			osName = osName.toLowerCase();
+			if(osName.contains("linux")) {//Linux系统
+				Constans.BASE_LOCAL_PATH = "/usr/local/biaoqingbao/";
+			}
+		}
+		System.out.println("当前系统为:"+osName);
 		client.getOptions().setCssEnabled(false);
 		client.getOptions().setJavaScriptEnabled(false);
 	}
 	
 	public static void main(String[] args) throws Exception {
+		getHtmlPage();
+	}
+	
+	public static void getHtmlPage() throws Exception {
 		File baseFile = new File(Constans.BASE_LOCAL_PATH);
 		if(!baseFile.exists()) {
 			baseFile.mkdirs();

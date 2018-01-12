@@ -1,5 +1,11 @@
 package com.chd.biaoqingbao.main;
 
+import static com.chd.biaoqingbao.constans.CharsetName.UTF_8;
+import static com.chd.biaoqingbao.constans.Constans.BASE_LOCAL_PATH;
+import static com.chd.biaoqingbao.constans.Constans.MESSAGE;
+import static com.chd.biaoqingbao.constans.Constans.PATH;
+import static com.chd.biaoqingbao.constans.Constans.SUCCESS;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -12,9 +18,6 @@ import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.chd.biaoqingbao.constans.CharsetName;
-import com.chd.biaoqingbao.constans.Constans;
 
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
@@ -30,28 +33,26 @@ public class MainTest {
 	private static Logger logger = LogManager.getLogger(MainTest.class);
 
 	public static void main(String[] args) throws Exception {
-		URL url = new URL(Constans.PATH);
+		URL url = new URL(PATH);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		int code = connection.getResponseCode();
 		String message = connection.getResponseMessage();
 		StringBuffer html = new StringBuffer();
 		if (isSuccess(code) && checkSuccess(message)) {
 			InputStream inputStream = connection.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, CharsetName.UTF_8));
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, UTF_8));
 			String readLine = null;
 			while ((readLine = br.readLine()) != null) {
 				html.append(readLine + "\n");
 			}
 		} else {
 			InputStream inputStream = connection.getErrorStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, CharsetName.UTF_8));
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, UTF_8));
 			String readLine = null;
 			while ((readLine = br.readLine()) != null) {
 				html.append(readLine);
 			}
 		}
-		// logger.info("-------------------ÍøÒ³ÄÚÈÝ------------------");
-		// logger.info(html.toString());
 		String urlExp = "((ht|f)tps?):\\/\\/[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:\\/~\\+#]*[\\w\\-\\@?^=%&\\/~\\+#])";
 		String pathExp = "[\\/?\\w?]+";
 		String exp = "<a href=\"(" + urlExp + "|" + pathExp + ")\"\\s?[target=\"_blank\"\\stitle=\"[\\u4e00-\\u9fa5]\"]*>([\\w]*[\\u4e00-\\u9fa5]+)[</a>]?";
@@ -62,10 +63,10 @@ public class MainTest {
 			String word = matcher.group(6);
 
 			if (!link.contains("http://")) {
-				link = Constans.PATH + link;
+				link = PATH + link;
 			}
 
-			if (!link.equals(Constans.PATH) && link.contains(Constans.PATH)) {
+			if (!link.equals(PATH) && link.contains(PATH)) {
 				System.out.println(link);
 				System.out.println(word);
 				parseImages(link);
@@ -83,14 +84,14 @@ public class MainTest {
 			StringBuffer html = new StringBuffer();
 			if (isSuccess(code) && checkSuccess(message)) {
 				InputStream inputStream = connection.getInputStream();
-				BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, CharsetName.UTF_8));
+				BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, UTF_8));
 				String readLine = null;
 				while ((readLine = br.readLine()) != null) {
 					html.append(readLine + "\n");
 				}
 			} else {
 				InputStream inputStream = connection.getErrorStream();
-				BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, CharsetName.UTF_8));
+				BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, UTF_8));
 				String readLine = null;
 				while ((readLine = br.readLine()) != null) {
 					html.append(readLine);
@@ -107,10 +108,10 @@ public class MainTest {
 					String word = matcher.group(2);
 
 					if (!link.contains("http://")) {
-						link = Constans.PATH + link;
+						link = PATH + link;
 					}
 
-					if (!link.equals(Constans.PATH) && link.contains(Constans.PATH)) {
+					if (!link.equals(PATH) && link.contains(PATH)) {
 						System.out.println(link);
 						System.out.println(word);
 					}
@@ -120,11 +121,11 @@ public class MainTest {
 	}
 
 	public static boolean isSuccess(int code) {
-		return code == Constans.SUCCESS;
+		return code == SUCCESS;
 	}
 
 	public static boolean checkSuccess(String message) {
-		return message != null && message.equals(Constans.MESSAGE);
+		return message != null && message.equals(MESSAGE);
 	}
 
 	public void ocrText(String[] args) {
