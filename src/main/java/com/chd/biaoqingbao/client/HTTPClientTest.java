@@ -2,18 +2,18 @@ package com.chd.biaoqingbao.client;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.chd.biaoqingbao.constans.Constans;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -23,8 +23,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class HTTPClientTest {
 
 	
-	private static WebClient client = new WebClient(BrowserVersion.CHROME);
-	
+	private static final WebClient client = new WebClient(BrowserVersion.CHROME);
+	private static final Logger logger = LogManager.getLogger(HTTPClientTest.class);
 	static {
 		client.getOptions().setCssEnabled(false);
 		client.getOptions().setJavaScriptEnabled(false);
@@ -52,8 +52,8 @@ public class HTTPClientTest {
 			}
 
 			if (!link.equals(Constans.PATH) && link.contains(Constans.PATH)) {
-				System.out.println(link);
-				System.out.println(word);
+				logger.info(link);
+				logger.info(word);
 				File file = new File(baseFile, word);
 				if(!file.exists()) {
 					file.mkdir();
@@ -95,10 +95,10 @@ public class HTTPClientTest {
 						outputStream.close();
 						inputStream.close();
 					}else {
-						System.out.println("已跳过，文件已存在！");
+						logger.info("已跳过，文件已存在！");
 					}
-					System.out.println(link);
-					System.out.println(word);
+					logger.info(link);
+					logger.info(word);
 				}
 			}catch(FailingHttpStatusCodeException e) {
 				break;
