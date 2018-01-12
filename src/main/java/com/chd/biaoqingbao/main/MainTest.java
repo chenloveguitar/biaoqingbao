@@ -20,6 +20,11 @@ import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
+/**
+ * 该版本无法执行js,如果网站是通过js动态生成的网页,就没办法获取到想要的内容了.
+ * @author jumili
+ *
+ */
 public class MainTest {
 
 	private static Logger logger = LogManager.getLogger(MainTest.class);
