@@ -1,4 +1,4 @@
-package com.chd.biaoqingbao.client;
+ï»¿package com.chd.biaoqingbao.client;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,15 +27,15 @@ public class HTTPClientTest {
 	private static final Logger logger = LogManager.getLogger(HTTPClientTest.class);
 	static {
 		
-		//¼ì²âÔËĞĞ»·¾³
+		//æ£€æµ‹è¿è¡Œç¯å¢ƒ
 		String osName = System.getProperty("os.name");
 		if(osName != null) {
 			osName = osName.toLowerCase();
-			if(osName.contains("linux")) {//LinuxÏµÍ³
+			if(osName.contains("linux")) {//Linuxç³»ç»Ÿ
 				Constans.BASE_LOCAL_PATH = "/usr/local/biaoqingbao/";
 			}
 		}
-		System.out.println("µ±Ç°ÏµÍ³Îª:"+osName);
+		System.out.println("å½“å‰ç³»ç»Ÿä¸º:"+osName);
 		client.getOptions().setCssEnabled(false);
 		client.getOptions().setJavaScriptEnabled(false);
 	}
@@ -49,7 +49,7 @@ public class HTTPClientTest {
 		if(!baseFile.exists()) {
 			baseFile.mkdirs();
 		}
-		//´´½¨Ò»¸öÄ£Äâchromeä¯ÀÀÆ÷µÄweb¿Í»§¶Ë
+		//åˆ›å»ºä¸€ä¸ªæ¨¡æ‹Ÿchromeæµè§ˆå™¨çš„webå®¢æˆ·ç«¯
 		HtmlPage htmlPage = client.getPage(Constans.PATH);
 		String html = htmlPage.asXml();
 		String urlExp = "((ht|f)tps?):\\/\\/[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-,@?^=%&:\\/~\\+#]*[\\w\\-\\@?^=%&\\/~\\+#])";
@@ -82,7 +82,7 @@ public class HTTPClientTest {
 			try {
 				HtmlPage htmlPage = client.getPage(baseUrl + "/page/" + i);
 				String html = htmlPage.asXml();
-				// ½âÎöimg
+				// è§£æimg
 				String exp = "<img src=\"([\\/?\\w?\\-?]+\\.(png|jpg|jpeg|gif))\" alt=\"([\\u4e00-\\u9fa5]*)\" width=\"150\" height=\"150\" border=\"0\"/>";
 				Pattern pattern = Pattern.compile(exp);
 				Matcher matcher = pattern.matcher(html);
@@ -109,7 +109,7 @@ public class HTTPClientTest {
 						outputStream.close();
 						inputStream.close();
 					}else {
-						logger.info("ÒÑÌø¹ı£¬ÎÄ¼şÒÑ´æÔÚ£¡");
+						logger.info("å·²è·³è¿‡ï¼Œæ–‡ä»¶å·²å­˜åœ¨ï¼");
 					}
 					logger.info(link);
 					logger.info(word);
@@ -120,7 +120,7 @@ public class HTTPClientTest {
 		}
 	}
 	/**
-	 * »ñÈ¡»ñÈ¡Í¨¹ıjs¶¯Ì¬Éú³ÉµÄhtmlÍøÒ³
+	 * è·å–è·å–é€šè¿‡jsåŠ¨æ€ç”Ÿæˆçš„htmlç½‘é¡µ
 	 * @param args
 	 */
 	public static void testGetHtml(String[] args) {
@@ -129,24 +129,24 @@ public class HTTPClientTest {
 	        WebClient webClient = new WebClient(BrowserVersion.CHROME);  
 	        webClient.getOptions().setCssEnabled(false);  
 	        webClient.getOptions().setJavaScriptEnabled(false);  
-	        //È¥ÄÃÍøÒ³  
+	        //å»æ‹¿ç½‘é¡µ  
 	        HtmlPage htmlPage = webClient.getPage("http://pic.sogou.com/");  
-	        //µÃµ½±íµ¥  
+	        //å¾—åˆ°è¡¨å•  
 	        HtmlForm form = htmlPage.getFormByName("searchForm");  
-	        //µÃµ½Ìá½»°´Å¥  
-	        HtmlSubmitInput button = form.getInputByValue("ËÑ¹·ËÑË÷");  
-	        //µÃµ½ÊäÈë¿ò  
+	        //å¾—åˆ°æäº¤æŒ‰é’®  
+	        HtmlSubmitInput button = form.getInputByValue("æœç‹—æœç´¢");  
+	        //å¾—åˆ°è¾“å…¥æ¡†  
 	        HtmlTextInput textField = form.getInputByName("query");  
-	        //ÊäÈëÄÚÈİ  
+	        //è¾“å…¥å†…å®¹  
 	        textField.setValueAttribute(args[0]);  
-	        //µãÒ»ÏÂ°´Å¥  
+	        //ç‚¹ä¸€ä¸‹æŒ‰é’®  
 	        HtmlPage nextPage = button.click();  
 	        page = nextPage.asXml();
 	        webClient.close();  
 	    } catch (Exception e) {  
 	        e.printStackTrace();  
 	    }
-	    //»ñÈ¡µ½µÄÍøÒ³ÄÚÈİ
+	    //è·å–åˆ°çš„ç½‘é¡µå†…å®¹
 	    System.out.println(page);
 	}
 }

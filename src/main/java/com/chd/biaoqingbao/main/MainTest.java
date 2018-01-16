@@ -1,4 +1,4 @@
-package com.chd.biaoqingbao.main;
+ï»¿package com.chd.biaoqingbao.main;
 
 import static com.chd.biaoqingbao.constans.CharsetName.UTF_8;
 import static com.chd.biaoqingbao.constans.Constans.BASE_LOCAL_PATH;
@@ -24,7 +24,7 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
 /**
- * ¸Ã°æ±¾ÎŞ·¨Ö´ĞĞjs,Èç¹ûÍøÕ¾ÊÇÍ¨¹ıjs¶¯Ì¬Éú³ÉµÄÍøÒ³,¾ÍÃ»°ì·¨»ñÈ¡µ½ÏëÒªµÄÄÚÈİÁË.
+ * è¯¥ç‰ˆæœ¬æ— æ³•æ‰§è¡Œjs,å¦‚æœç½‘ç«™æ˜¯é€šè¿‡jsåŠ¨æ€ç”Ÿæˆçš„ç½‘é¡µ,å°±æ²¡åŠæ³•è·å–åˆ°æƒ³è¦çš„å†…å®¹äº†.
  * @author jumili
  *
  */
@@ -99,7 +99,7 @@ public class MainTest {
 			}
 
 			if (!html.toString().contains("http://biaoqingbao.xin/wp-content/themes/bizhiyun/images/error.gif")) {
-				// ½âÎöimg
+				// è§£æimg
 				String exp = "<img src=\"([\\/?\\w?\\-?]+\\.(png|jpg|jpeg|gif))\" alt=\"([\\u4e00-\\u9fa5]*)\" width=\"150\" height=\"150\" border=\"0\">";
 				Pattern pattern = Pattern.compile(exp);
 				Matcher matcher = pattern.matcher(html.toString());
@@ -142,7 +142,7 @@ public class MainTest {
 		String cmd = "";
 
 		if (args == null || args.length == 0) {
-			System.out.println("ÇëÊäÈëÃüÁîĞĞ²ÎÊı");
+			System.out.println("è¯·è¾“å…¥å‘½ä»¤è¡Œå‚æ•°");
 		} else {
 
 			for (int i = 0; i < args.length; i++) {
